@@ -24,6 +24,19 @@ func doSlowStuff(name string, ctx context.Context, duration time.Duration) error
 	return nil
 }
 
+func doSlowStuffNoCtx(duration time.Duration) error {
+	name := "NoCtx"
+	fmt.Println("Starting doSlowStuff --", name)
+	valDur := int64(duration)
+	shorDur := time.Duration(valDur / 10)
+	for i := 0; i < 10; i++ {
+		fmt.Println("... sleeping", i, "--", name)
+		time.Sleep(shorDur)
+	}
+	fmt.Println("Did stuff", "--", name)
+	return nil
+}
+
 func main() {
 	bgCtx := context.Background()
 
@@ -33,7 +46,7 @@ func main() {
 
 		toCtx, cancel := context.WithTimeout(bgCtx, timeout)
 		defer cancel()
-		eg, egCtx := errgroup.WithContext(bgCtx)
+		eg, egCtx := errgroup.WithContext(toCtx)
 		eg.Go(func() error {
 			return doSlowStuff("bgCtx", bgCtx, time.Duration(200)*time.Millisecond)
 		})
@@ -42,6 +55,9 @@ func main() {
 		})
 		eg.Go(func() error {
 			return doSlowStuff("toCtx", toCtx, time.Duration(200)*time.Millisecond)
+		})
+		eg.Go(func() error {
+			return doSlowStuffNoCtx(time.Duration(200)*time.Millisecond)
 		})
 		fmt.Println("eg.Wait =", eg.Wait())
 	}()
