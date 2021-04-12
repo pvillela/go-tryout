@@ -34,9 +34,9 @@ type Xyz interface {
 }
 
 type Fuz struct {
-	Xyz
-	X1 int `json:"x1"`
-	X2 int `json:"x2Fuz"`
+	Xyz `json:",omitempty"`
+	X1  int `json:"x1"`
+	X2  int `json:"x2Fuz"`
 }
 
 func (s Foo) M1() int { return s.X1 }
@@ -46,7 +46,11 @@ func (s Bar) M1() int { return s.X1 }
 // FuzUnmarshal -- see https://endophage.com/post/golang-parse-to-interface/
 // This is a simple example with poor error handling.
 func FuzUnmarshal(data []byte, fuz *Fuz) {
-	_ = json.Unmarshal(data, fuz)
+	err := json.Unmarshal(data, fuz)
+	if err != nil {
+		// Ignore error on purpose as other fields have been unmarshalled.
+		fmt.Println(err)
+	}
 
 	m := make(map[string]json.RawMessage)
 	_ = json.Unmarshal(data, &m)
@@ -56,8 +60,9 @@ func FuzUnmarshal(data []byte, fuz *Fuz) {
 	if !ok {
 		return
 	}
-
+	fmt.Println("fuz before XyzUnmarshal: ", fuz)
 	_ = XyzUnmarshal(xyzSer, &fuz.Xyz)
+	fmt.Println("fuz after XyzUnmarshal: ", fuz)
 }
 
 // XyzUnmarshal -- see https://endophage.com/post/golang-parse-to-interface/
