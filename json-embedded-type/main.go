@@ -8,6 +8,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -39,11 +40,14 @@ type Fuz struct {
 	X2  int `json:"x2Fuz"`
 }
 
+type fuzAlias Fuz // defined to avoid infinite recursion in unmarshalling
+
 func (s Foo) M1() int { return s.X1 }
 
 func (s Bar) M1() int { return s.X1 }
 
 // FuzUnmarshal -- see https://endophage.com/post/golang-parse-to-interface/
+// My original solution that I converted to a method below.
 // This is a simple example with poor error handling.
 func FuzUnmarshal(data []byte, fuz *Fuz) {
 	err := json.Unmarshal(data, fuz)
@@ -63,6 +67,38 @@ func FuzUnmarshal(data []byte, fuz *Fuz) {
 	fmt.Println("fuz before XyzUnmarshal: ", fuz)
 	_ = XyzUnmarshal(xyzSer, &fuz.Xyz)
 	fmt.Println("fuz after XyzUnmarshal: ", fuz)
+}
+
+//  UnmarshalJSON -- see https://endophage.com/post/golang-parse-to-interface/
+func (fuz *Fuz) UnmarshalJSON(data []byte) error {
+	fuzAlias := (*fuzAlias)(fuz) // to avoid infinite recursion
+	err := json.Unmarshal(data, fuzAlias)
+	if err != nil {
+		// Ignore error on purpose as other fields have been unmarshalled.
+		fmt.Println(err)
+	}
+
+	m := make(map[string]json.RawMessage)
+	err = json.Unmarshal(data, &m)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(m["Xyz"])
+
+	xyzSer, ok := m["Xyz"]
+	if !ok {
+		return errors.New("not a valid Fuz JSON representation")
+	}
+
+	fmt.Println("fuz before XyzUnmarshal: ", fuz)
+	err = XyzUnmarshal(xyzSer, &fuz.Xyz)
+	if err != nil {
+		return err
+	}
+	fmt.Println("fuz after XyzUnmarshal: ", fuz)
+
+	return nil
 }
 
 // XyzUnmarshal -- see https://endophage.com/post/golang-parse-to-interface/
@@ -164,7 +200,8 @@ func main() {
 		fuz2Ser := SerializeAndPrint("fuz2", fuz2)
 
 		fuz2Des := Fuz{}
-		FuzUnmarshal(fuz2Ser, &fuz2Des)
+		//FuzUnmarshal(fuz2Ser, &fuz2Des)
+		_ = json.Unmarshal(fuz2Ser, &fuz2Des)
 		SerializeAndPrint("fuz2Des", fuz2Des)
 		fmt.Println()
 	}()
@@ -178,7 +215,8 @@ func main() {
 		fuz3Ser := SerializeAndPrint("fuz3", fuz3)
 
 		fuz3Des := Fuz{}
-		FuzUnmarshal(fuz3Ser, &fuz3Des)
+		//FuzUnmarshal(fuz3Ser, &fuz3Des)
+		_ = json.Unmarshal(fuz3Ser, &fuz3Des)
 		SerializeAndPrint("fuz3Des", fuz3Des)
 		fmt.Println()
 	}()
