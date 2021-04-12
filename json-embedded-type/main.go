@@ -47,24 +47,43 @@ func (s Bar) M1() int { return s.X1 }
 // This is a simple example with poor error handling.
 func FuzUnmarshal(data []byte, fuz *Fuz) {
 	_ = json.Unmarshal(data, fuz)
+
 	m := make(map[string]json.RawMessage)
 	_ = json.Unmarshal(data, &m)
 	fmt.Println(m["Xyz"])
+
 	xyzSer, ok := m["Xyz"]
 	if !ok {
 		return
 	}
-	_ = json.Unmarshal(xyzSer, &m)
-	_, ok = m["x2Bar"]
+
+	_ = XyzUnmarshal(xyzSer, &fuz.Xyz)
+}
+
+// XyzUnmarshal -- see https://endophage.com/post/golang-parse-to-interface/
+func XyzUnmarshal(data []byte, xyz *Xyz) error {
+	m := make(map[string]json.RawMessage)
+	err := json.Unmarshal(data, &m)
+	if err != nil {
+		return err
+	}
+	_, ok := m["x2Bar"]
 	if ok {
 		bar := Bar{}
-		_ = json.Unmarshal(xyzSer, &bar)
-		fuz.Xyz = bar
+		err = json.Unmarshal(data, &bar)
+		if err != nil {
+			return err
+		}
+		*xyz = bar
 	} else {
 		foo := Foo{}
-		_ = json.Unmarshal(xyzSer, &foo)
-		fuz.Xyz = foo
+		err = json.Unmarshal(data, &foo)
+		if err != nil {
+			return err
+		}
+		*xyz = foo
 	}
+	return nil
 }
 
 func SerializeAndPrint(label string, object interface{}) []byte {
