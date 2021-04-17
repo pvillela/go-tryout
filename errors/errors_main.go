@@ -15,8 +15,12 @@ import (
 	"github.com/pkg/errors"
 )
 
+type stackTracer interface {
+	StackTrace() errors.StackTrace
+}
+
 func fn0() error {
-	e1 := errors.New("error")
+	e1 := errors.New("original")
 	e2 := errors.Wrap(e1, "inner")
 	e3 := errors.Wrap(e2, "middle")
 	return errors.Wrap(e3, "outer")
@@ -30,4 +34,7 @@ func main() {
 	fmt.Println("\n*** errors.Cause(err) ->", errors.Cause(err))
 	fmt.Println("\n**** stack trace below")
 	fmt.Printf("%+v", err)
+
+	fmt.Println("\n\n********** with stackTracer")
+	fmt.Printf("%+v", err.(stackTracer).StackTrace())
 }
