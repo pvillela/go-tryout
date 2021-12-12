@@ -14,12 +14,13 @@ func main() {
 	var x interface{}
 	y := x
 	x = 1
-	fmt.Println(y) // y is different from x
+	fmt.Println(x, y) // y is different from x
 
 	var v interface{}
 	k := 1
 	v = &k
 	w := v
 	*v.(*int) = 2
-	fmt.Println(*w.(*int)) // w is equal to v
+	fmt.Println(*v.(*int), *w.(*int)) // w is equal to v
+	*v.(*string) = "xxx"              // this panics
 }
