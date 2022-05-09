@@ -138,14 +138,15 @@ func (e *errxImpl) InnermostCause() error {
 	return cause
 }
 
-func (e *errxImpl) stackRecurse() ([]byte, int) {
-	var stack []byte
-	var stackLinesToSuppress int
-
+// Guaranteed to return a non-nil result because *errxImpl can only be instantiated with
+// the (*Kind).makeInternal constructor with sets a non-nil stack or with the (*Kind).Decorate
+// constructor which requires an existing Errx as the cause which already must have a non-nil
+// stack somewhere in its cause chain.
+func (e *errxImpl) firstErrWithStack() *errxImpl {
+	var err *errxImpl
 	f := func(e *errxImpl) bool {
 		if e.stack != nil {
-			stack = e.stack
-			stackLinesToSuppress = e.stackLinesToSuppress
+			err = e
 			return false
 		}
 		return true
@@ -153,25 +154,25 @@ func (e *errxImpl) stackRecurse() ([]byte, int) {
 
 	e.traverseErrxChain(true, f)
 
-	return stack, stackLinesToSuppress
+	return err
 }
 
 // StackTrace returns a string that contains both the
 // error message and the callstack.
 func (e *errxImpl) StackTrace() string {
-	stack, stackLinesToSuppress := e.stackRecurse()
+	ews := e.firstErrWithStack() // guaranteed to be non-nil
 	cutoffLineIndex := 0
 	newlineCount := 0
-	for i, b := range stack {
+	for i, b := range ews.stack {
 		cutoffLineIndex = i + 1
 		if b == '\n' {
 			newlineCount++
 		}
-		if newlineCount == stackLinesToSuppress*2+1 {
+		if newlineCount == ews.stackLinesToSuppress*2+1 {
 			break
 		}
 	}
-	trimmedStack := stack[cutoffLineIndex:]
+	trimmedStack := ews.stack[cutoffLineIndex:]
 	return "errx.Errx: " + e.Error() + "\n" + string(trimmedStack)
 }
 
