@@ -93,7 +93,7 @@ func main() {
 	fmt.Printf("%+v\n", errx3.StackTraceOf(error(fooErr)))
 
 	fmt.Println("\n---fmt.Println(fooErr.Cause()--------------------------------------------")
-	fmt.Println(fooErr.Cause())
+	fmt.Println(fooErr.Unwrap())
 
 	fmt.Println("\n---fmt.Println(fooErr.InnermostErrx()--------------------------------------------")
 	fmt.Println(fooErr.InnermostErrx())
