@@ -208,6 +208,49 @@ func (e *errxImpl) StackTrace() string {
 }
 
 /////////////////////
+// Factory functions. See also kind.go for additional factory functions.
+
+// Helper method to create an Errx whose Kind is defined on-the-fly using msg.
+func newErrxInternal(cause error, msg string, stackLinesToSuppress int) Errx {
+	kind := NewKind(msg)
+	err := kind.makeInternal(cause, stackLinesToSuppress)
+	return err
+}
+
+// NewErrx creates an Errx whose Kind is defined on-the-fly using msg.
+func NewErrx(cause error, msg string) Errx {
+	return newErrxInternal(cause, msg, 4)
+}
+
+// ErrxOf creates an Errx from r.
+// If r is nil, nil is returned.
+// If r is an Errx, r is returned.
+// If r is an error, NewErrx is used to instantiate an Errx with r as its cause.
+// Otherwise, NewErrx is used to instantiate an Errx with nil as the cause argument
+// and r's string rendering as the msg argument.
+func ErrxOf(r any) Errx {
+	if r == nil {
+		return nil
+	}
+	var err error
+	switch r.(type) {
+	case error:
+		err = r.(error)
+	default:
+		err = nil
+	}
+	errX, ok := err.(Errx)
+	if !ok {
+		if err != nil {
+			errX = newErrxInternal(err, ".", 4)
+		} else {
+			errX = newErrxInternal(nil, fmt.Sprintf("%v", r), 4)
+		}
+	}
+	return errX
+}
+
+/////////////////////
 // Other public functions
 
 // StackTraceOf returns err.StackTrace() if err is of type Errx, an empty string otherwise.
