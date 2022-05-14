@@ -12,9 +12,12 @@ type fooT interface {
 	bar() int
 }
 
-var slice []int = nil // assignment just for emphasis as the default (zero) is nil
 var err error
 var foo fooT
+var slice []int = nil // assignment just for emphasis as the default (zero) is nil
+var pAny *any
+var pErr *error
+var pFoo *fooT
 
 func isNilAny(x any) bool {
 	if x == nil {
@@ -23,9 +26,12 @@ func isNilAny(x any) bool {
 	return false
 }
 
-// A nil interface is a nil any, but a nil slice is not.
+// A nil interface is a nil any, but a nil slice and a nil pointer are not.
 func main() {
-	fmt.Println("isNilAny(slice):", isNilAny(slice))
 	fmt.Println("isNilAny(err):", isNilAny(err))
 	fmt.Println("isNilAny(foo):", isNilAny(foo))
+	fmt.Println("isNilAny(slice):", isNilAny(slice))
+	fmt.Println("isNilAny(pAny):", isNilAny(pAny))
+	fmt.Println("isNilAny(pErr):", isNilAny(pErr))
+	fmt.Println("isNilAny(pFoo):", isNilAny(pFoo))
 }
