@@ -4,7 +4,9 @@
  *  that can be found in the LICENSE file.
  */
 
-// Based on https://golangcode.com/generate-sha256-hmac/
+// Example of SMART Health Card HMAC computation used for revocation.
+// Based on https://golangcode.com/generate-sha256-hmac/ and
+// https://spec.smarthealth.cards/#revocation.
 
 package main
 
