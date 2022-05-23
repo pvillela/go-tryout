@@ -6,15 +6,15 @@
 
 package errx
 
-import "github.com/pvillela/go-tryout/arch/errx/errx3"
+import "github.com/pvillela/go-tryout/arch/errx/errx4"
 
-type Errx = errx3.Errx
+type Errx = errx4.Errx
 
-var NewErrx = errx3.NewErrx
-var ErrxOf = errx3.ErrxOf
-var StackTraceOf = errx3.StackTraceOf
+var NewErrx = errx4.NewErrx
+var ErrxOf = errx4.ErrxOf
+var StackTraceOf = errx4.StackTraceOf
 
-type Kind = errx3.Kind
+type Kind = errx4.Kind
 
-var KindOf = errx3.KindOf
-var NewKind = errx3.NewKind
+var KindOf = errx4.KindOf
+var NewKind = errx4.NewKind
