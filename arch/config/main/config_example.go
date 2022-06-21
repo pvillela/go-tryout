@@ -10,40 +10,50 @@ import (
 	"fmt"
 	"github.com/pvillela/go-tryout/arch/config/bf"
 	"github.com/pvillela/go-tryout/arch/config/bf/bfc"
-	"github.com/pvillela/go-tryout/arch/errx"
-	"os"
+	"github.com/pvillela/go-tryout/arch/config/config"
 )
 
-func test() {
+func testDynamic() {
 
 	// Config provider for testing bf.MyBf.
-	testMyBfCfgPvdr := func() bf.MyBfCfg {
-		return bf.MyBfCfg{K: 3}
+	testMyBfCfgPvdr := func() bf.DynamicBfCfg {
+		return bf.DynamicBfCfg{K: 3}
 	}
 
 	// Instance of business function for test.
-	myBf := bf.MyBfC(testMyBfCfgPvdr)
+	dynamicBf := bf.DynamicBfC(testMyBfCfgPvdr)
 
-	res := myBf(2)
-	fmt.Println("Test result:", res)
+	res := dynamicBf(2)
+	fmt.Println("Test result for DynamicBf:", res)
 }
 
-func prod() {
+func prodDynamic() {
 	// Instance of business function for production.
-	myBf := bfc.MyBf
+	dynamicBf := bfc.DynamicBf
 
-	res := myBf(2)
-	fmt.Println("Prod result:", res)
+	res := dynamicBf(2)
+	fmt.Println("Prod result for DynamicBf:", res)
+}
+
+func prodStatic() {
+	// Instance of business function for production.
+	staticBf := bfc.StaticBf
+
+	res := staticBf(2)
+	fmt.Println("Prod result for StaticBf:", res)
 }
 
 func main() {
-	test()
+	testDynamic()
 
-	// Set environment for prod config properties.
-	err := os.Setenv("X", "xyz")
-	errx.PanicOnError(err)
-	err = os.Setenv("Y", "9")
-	errx.PanicOnError(err)
+	fmt.Println("Initial value of config.GlobalCfg.Y:", config.GlobalCfg.Y)
+	prodDynamic()
+	prodStatic()
 
-	prod()
+	// Update global config properties.
+	config.GlobalCfg.Y = 99
+	fmt.Println("Changed config.GlobalCfg.Y to", config.GlobalCfg.Y)
+
+	prodDynamic()
+	prodStatic()
 }

@@ -11,11 +11,11 @@ import (
 	"github.com/pvillela/go-tryout/arch/config/config"
 )
 
-// myBfCfgProdProvider is the config provider for production.
-var myBfCfgProdProvider bf.MyBfCfgPvdr = func() bf.MyBfCfg {
+// dynamicBfCfgProdProvider is the config provider for production.
+var dynamicBfCfgProdProvider bf.DynamicBfCfgPvdr = func() bf.DynamicBfCfg {
 	gCfg := config.GlobalCfgPvdr()
-	return bf.MyBfCfg{K: gCfg.Y}
+	return bf.DynamicBfCfg{K: gCfg.Y}
 }
 
-// MyBf is the configured stereotype instance.
-var MyBf bf.MyBfT = bf.MyBfC(myBfCfgProdProvider)
+// DynamicBf is the configured stereotype instance.
+var DynamicBf bf.DynamicBfT = bf.DynamicBfC(dynamicBfCfgProdProvider)
