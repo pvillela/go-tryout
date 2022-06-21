@@ -17,12 +17,12 @@ import (
 func test() {
 
 	// Config provider for testing bf.MyBf.
-	testMyBfCfgProvider := func() bf.MyBfCfg {
+	testMyBfCfgPvdr := func() bf.MyBfCfg {
 		return bf.MyBfCfg{K: 3}
 	}
 
 	// Instance of business function for test.
-	myBf := bf.MyBfC(testMyBfCfgProvider)
+	myBf := bf.MyBfC(testMyBfCfgPvdr)
 
 	res := myBf(2)
 	fmt.Println("Test result:", res)

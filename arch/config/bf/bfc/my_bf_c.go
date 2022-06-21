@@ -12,8 +12,8 @@ import (
 )
 
 // myBfCfgProdProvider is the config provider for production.
-var myBfCfgProdProvider bf.MyBfCfgProvider = func() bf.MyBfCfg {
-	gCfg := config.GlobalConfigProvider()
+var myBfCfgProdProvider bf.MyBfCfgPvdr = func() bf.MyBfCfg {
+	gCfg := config.GlobalCfgPvdr()
 	return bf.MyBfCfg{K: gCfg.Y}
 }
 

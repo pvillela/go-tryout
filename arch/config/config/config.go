@@ -18,9 +18,9 @@ type Config struct {
 	Y int
 }
 
-// GlobalConfigProvider is an example of a global configuration provider that sources
+// GlobalCfgPvdr is an example of a global configuration provider that sources
 // configuration properties from the environment.
-func GlobalConfigProvider() Config {
+func GlobalCfgPvdr() Config {
 	yStr := os.Getenv("Y")
 	y, err := strconv.Atoi(yStr)
 	errx.PanicOnError(err)

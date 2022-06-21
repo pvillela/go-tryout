@@ -14,16 +14,16 @@ type MyBfCfg struct {
 	K int
 }
 
-// MyBfCfgProvider is the type of functions that provide
+// MyBfCfgPvdr is the type of functions that provide
 // the required config data for MyBfT.
-type MyBfCfgProvider func() MyBfCfg
+type MyBfCfgPvdr func() MyBfCfg
 
 // MyBfC is the higher-order function that constructs instances of MyBfT.
 func MyBfC(
-	cfgProvider MyBfCfgProvider,
+	CfgPvdr MyBfCfgPvdr,
 ) MyBfT {
 	return func(i int) int {
-		cfg := cfgProvider()
+		cfg := CfgPvdr()
 		return i + cfg.K
 	}
 }
