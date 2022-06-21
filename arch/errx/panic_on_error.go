@@ -4,17 +4,16 @@
  *  that can be found in the LICENSE file.
  */
 
-package util
+package errx
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/arch/errx"
 	"runtime/debug"
 )
 
 func PanicOnError(err error) {
 	if err != nil {
-		panic(errx.ErrxOf(err))
+		panic(ErrxOf(err))
 	}
 }
 
@@ -22,8 +21,8 @@ func PanicLog(logger func(args ...interface{})) {
 	if r := recover(); r != nil {
 		var str string
 		switch r.(type) {
-		case errx.Errx:
-			str = r.(errx.Errx).StackTrace()
+		case Errx:
+			str = r.(Errx).StackTrace()
 		default:
 			var errStr string
 			errStr = fmt.Sprintf("%v", r)

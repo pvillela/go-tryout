@@ -8,7 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"github.com/pvillela/go-tryout/arch/util"
+	"github.com/pvillela/go-tryout/arch/errx"
 )
 
 // generateKey generates a random 256 bit key.
@@ -36,7 +36,7 @@ func main() {
 
 	{
 		key, err := generateKey()
-		util.PanicOnError(err)
+		errx.PanicOnError(err)
 		fmt.Printf("\n********* generated key: %x\n", key)
 
 		sig := sign(msg, key)
@@ -50,7 +50,7 @@ func main() {
 	{
 		var givenHexKey = "5717e558d867a8f71b0e740bace172fa62ee6c25dfaaafe8937d2049244aaf16"
 		var key, err = hex.DecodeString(givenHexKey)
-		util.PanicOnError(err)
+		errx.PanicOnError(err)
 		fmt.Printf("\n********* given key: %x\n", key)
 
 		sig := sign(msg, key)
