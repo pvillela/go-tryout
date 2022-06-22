@@ -19,8 +19,8 @@ type StaticBfCfg struct {
 type StaticBfCfgPvdr func() StaticBfCfg
 
 // StaticBfC is the higher-order function that constructs instances of StaticBfT.
-// The constructed function gets fresh configuration data whenever the config
-// properties are updated.
+// The constructed function gets configuration when constructed and subsequent changes to
+// configuration data have no effect on the function.
 func StaticBfC(
 	cfgPvdr StaticBfCfgPvdr,
 ) StaticBfT {
