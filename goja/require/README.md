@@ -1,0 +1,1 @@
+See https://github.com/dop251/goja_nodejs, func TestRequire in [module_test.go](https://github.com/dop251/goja_nodejs/blob/master/require/module_test.go), and m.js in [testdata](https://github.com/dop251/goja_nodejs/tree/master/require/testdata).
