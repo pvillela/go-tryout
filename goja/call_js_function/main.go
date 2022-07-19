@@ -51,10 +51,23 @@ function sum(a, b) {
 		if err != nil {
 			panic(err)
 		}
-		
+
 		res := fn(40, 2)
 
 		fmt.Println(res) // note, _this_ value in the function will be undefined.
 		// Output: 42
+	}
+
+	// ExportTo is not type-safe
+	{
+		var fn func(struct{ a int }, int) int
+		err = vm.ExportTo(v, &fn)
+		if err != nil {
+			panic(err)
+		}
+
+		res := fn(struct{ a int }{40}, 2)
+
+		fmt.Println(res)
 	}
 }
