@@ -37,6 +37,19 @@ func SimpleJS() {
 	fmt.Println("Running ... \n ")
 	v, err := vm.RunProgram(prog)
 	fmt.Println("v:", v)
+
+	// Get foo from vm as Go function and invoke it
+	{
+		var foo func(int, int) int
+		err = vm.ExportTo(vm.Get("foo"), &foo)
+		if err != nil {
+			fmt.Printf("Error exporting the function %v", err)
+			return
+		}
+
+		res := foo(40, 2)
+		fmt.Println("res:", res)
+	}
 }
 
 func main() {
