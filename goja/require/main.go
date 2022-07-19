@@ -9,6 +9,7 @@ package main
 import (
 	"fmt"
 	"github.com/dop251/goja"
+	"github.com/dop251/goja_nodejs/console"
 	"github.com/dop251/goja_nodejs/require"
 )
 
@@ -22,6 +23,7 @@ func main() {
 
 	registry := new(require.Registry)
 	registry.Enable(vm)
+	console.Enable(vm) // this enables use of console.log in JS with goja
 
 	v, err := vm.RunString(SCRIPT)
 	if err != nil {

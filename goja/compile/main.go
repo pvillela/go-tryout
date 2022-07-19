@@ -10,7 +10,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/dop251/goja"
 	"github.com/dop251/goja_nodejs/console"
 	"github.com/dop251/goja_nodejs/require"
@@ -19,8 +18,10 @@ import (
 func SimpleJS() {
 	vm := goja.New()
 
-	req := new(require.Registry).Enable(vm)
-	req.Require("foo.js")
+	//req := new(require.Registry).Enable(vm)
+	//req.Require("foo.js")
+
+	new(require.Registry).Enable(vm)
 	console.Enable(vm)
 
 	script := `
