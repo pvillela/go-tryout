@@ -18,9 +18,6 @@ import (
 func SimpleJS() {
 	vm := goja.New()
 
-	//req := new(require.Registry).Enable(vm)
-	//req.Require("foo.js")
-
 	new(require.Registry).Enable(vm)
 	console.Enable(vm)
 
