@@ -4,7 +4,7 @@
  *  that can be found in the LICENSE file.
  */
 
-package wgin
+package deprecated
 
 import (
 	"fmt"
@@ -14,6 +14,9 @@ import (
 	"strings"
 )
 
+// This function is DEPRECATED. It is unnecessarily complex and has a race condition as Gin
+// outputs serverReadyStr before it is actually ready to take requests.
+//
 // GinLaunchAndSignal launches Gin on a given port in a separate goroutine and returns
 // a channel that signals when the server is ready and a function to be deferred to
 // close the pipe used in the implementation. The router parameter is a Gin Engine with

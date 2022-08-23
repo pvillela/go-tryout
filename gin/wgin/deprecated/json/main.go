@@ -9,7 +9,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/pvillela/go-tryout/gin/wgin"
+	"github.com/pvillela/go-tryout/gin/wgin/deprecated"
 	"net/http"
 	"time"
 )
@@ -77,7 +77,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
 	})
 
-	serverReady, closePipe := wgin.GinLaunchAndSignal(router, 8080)
+	serverReady, closePipe := deprecated.GinLaunchAndSignal(router, 8080)
 	defer closePipe()
 
 	// Wait until server is ready
