@@ -7,10 +7,14 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/pvillela/go-tryout/gin/wgin/deprecated"
+	"github.com/pvillela/go-tryout/arch/errx"
+	"github.com/pvillela/go-tryout/web"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -20,18 +24,46 @@ type Login struct {
 	Password string `form:"password" json:"password" xml:"password" binding:"-"`
 }
 
+func processRequests() {
+	callServer := func(path string, payload []byte) {
+		fmt.Println()
+		fmt.Println("payload:", string(payload))
+		resp, err := http.Post("http://localhost:8080"+path, "application/json",
+			bytes.NewBuffer(payload))
+		errx.PanicOnError(err)
+
+		var res map[string]any
+		err = json.NewDecoder(resp.Body).Decode(&res)
+		errx.PanicOnError(err)
+		fmt.Println((resp.Status))
+		fmt.Println("response:", res)
+	}
+
+	{
+		path := "/loginJSON"
+		payload := []byte(`{ "user": "manu"}`)
+		callServer(path, payload)
+	}
+
+	{
+		path := "/loginJSON"
+		payload := []byte(`{ "user": "manu", "password": "123" }`)
+		callServer(path, payload)
+	}
+}
+
 func main() {
 	router := gin.Default()
 
 	// Example for binding JSON ({"user": "manu", "password": "123"})
 	router.POST("/loginJSON", func(c *gin.Context) {
-		var json Login
-		if err := c.BindJSON(&json); err != nil {
+		var input Login
+		if err := c.BindJSON(&input); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		if json.User != "manu" || json.Password != "123" {
+		if input.User != "manu" || input.Password != "123" {
 			c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
 			return
 		}
@@ -77,21 +109,22 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
 	})
 
-	serverReady, closePipe := deprecated.GinLaunchAndSignal(router, 8080)
-	defer closePipe()
+	// Launch the server
+	go func() {
+		// Listen and serve on 0.0.0.0:8080
+		err := router.Run(":8080")
+		errx.PanicOnError(err)
+	}()
 
-	// Wait until server is ready
-	<-serverReady
-	fmt.Println("***** Server is ready")
-
-	// Keep server running for n * delta seconds
-
-	n := 5
-	delta := 5 * time.Second
-	for i := 1; i <= n; i++ {
-		time.Sleep(delta)
-		fmt.Println("Running server:", (time.Duration(i) * delta).Seconds(),
-			"seconds of", (time.Duration(n) * delta).Seconds(), "seconds")
+	// Wait for server to be ready
+	err := web.WaitForHttpServer("http://localhost:8080/", 100*time.Millisecond)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
+	fmt.Println("***** Server ready")
+
+	processRequests()
+
 	fmt.Println("Exiting")
 }

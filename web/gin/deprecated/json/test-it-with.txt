@@ -1,4 +1,4 @@
-$ curl -v -X POST \
+curl -v -X POST \
   http://localhost:8080/loginJSON \
   -H 'content-type: application/json' \
   -d '{ "user": "manu" }'
@@ -17,7 +17,7 @@ $ curl -v -X POST \
 <
 {"error":"Key: 'Login.Password' Error:Field validation for 'Password' failed on the 'required' tag"}
 
-$ curl -v -X POST \
+curl -v -X POST \
   http://localhost:8080/loginJSON \
   -H 'content-type: application/json' \
   -d '{ "user": "manu", "password": "123" }'
