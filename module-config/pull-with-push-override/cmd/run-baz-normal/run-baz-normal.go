@@ -9,5 +9,5 @@ package main
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
 
 func main() {
-	mod.Foo()
+	mod.Baz()
 }

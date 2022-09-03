@@ -8,16 +8,16 @@ package mod
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 )
 
-type Module0CfgT struct {
+type FooSflCfgInfo struct {
 	X string
 }
 
-var Module0Cfg = fwk.MakeConfigSource[Module0CfgT](Module0Adapter)
+var FooSflCfgSrc = fwk.MakeConfigSource[FooSflCfgInfo]()
 
-func Foo() {
-	fmt.Println(Module0Cfg.Get().X)
-	Bar()
+func FooSfl() {
+	fmt.Println(FooSflCfgSrc.Get().X)
+	BarBf()
 }

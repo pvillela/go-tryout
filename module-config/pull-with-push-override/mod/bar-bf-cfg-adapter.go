@@ -8,8 +8,8 @@ package mod
 
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
 
-func Module1Adapter(appCfg fwk.AppCfg) Module1CfgT {
-	return Module1CfgT{
+func BarBfCfgAdapter(appCfg fwk.AppCfgInfo) BarBfCfgInfo {
+	return BarBfCfgInfo{
 		Z: appCfg.Y,
 	}
 }

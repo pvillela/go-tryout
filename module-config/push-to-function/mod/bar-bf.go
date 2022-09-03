@@ -8,15 +8,20 @@ package mod
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 )
 
-type Module1CfgT struct {
+type BarBfCfgInfo struct {
 	Z int
 }
 
-var Module1Cfg = fwk.MakeConfigSource[Module1CfgT]()
+type BarBfCfgSrc struct {
+	Get func() BarBfCfgInfo
+}
 
-func Bar() {
-	fmt.Println(Module1Cfg.Get().Z)
+type BarBfT = func()
+
+func BarBfC(cfg BarBfCfgSrc) BarBfT {
+	return func() {
+		fmt.Println(cfg.Get().Z)
+	}
 }

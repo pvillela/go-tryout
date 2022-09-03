@@ -11,12 +11,13 @@ import (
 	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
 )
 
-type Module2CfgT struct {
+type FooSflCfgInfo struct {
 	X string
 }
 
-var Module2Cfg = fwk.MakeConfigSource[Module2CfgT](nil)
+var FooSflCfgSrc = fwk.MakeConfigSource[FooSflCfgInfo](FooSflCfgAdapter)
 
-func Foo2() {
-	fmt.Println(Module2Cfg.Get().X)
+func FooSfl() {
+	fmt.Println(FooSflCfgSrc.Get().X)
+	BarBf()
 }

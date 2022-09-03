@@ -6,17 +6,15 @@
 
 package startup
 
-import "github.com/pvillela/go-tryout/module-config/push-to-file/mod"
+import (
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/mod"
+)
 
 func Initialize() struct{} {
-	mod.Module0Cfg.Set(func() mod.Module0CfgT {
-		return mod.Module0CfgT{X: "bar"}
-	})
-
-	mod.Module1Cfg.Set(func() mod.Module1CfgT {
-		return mod.Module1CfgT{Z: 99}
-	})
-
+	c := fwk.GetAppConfiguration
+	mod.FooSflAdapterCfgSrc.Set(c)
+	mod.BarBfAdapterCfgSrc.Set(c)
 	return struct{}{}
 }
 

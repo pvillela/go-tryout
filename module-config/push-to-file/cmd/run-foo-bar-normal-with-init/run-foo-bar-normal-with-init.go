@@ -6,8 +6,11 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
+import (
+	"github.com/pvillela/go-tryout/module-config/push-to-file/mod"
+	_ "github.com/pvillela/go-tryout/module-config/push-to-file/startup"
+)
 
 func main() {
-	mod.Foo2()
+	mod.FooSfl()
 }

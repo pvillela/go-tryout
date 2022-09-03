@@ -9,12 +9,12 @@ package main
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
 
 func initialize() {
-	mod.Module2Cfg.Set(func() mod.Module2CfgT {
-		return mod.Module2CfgT{X: "bar"}
+	mod.BazCfgSrc.Set(func() mod.BazCfgInfo {
+		return mod.BazCfgInfo{X: "bar"}
 	})
 }
 
 func main() {
 	initialize()
-	mod.Foo2()
+	mod.Baz()
 }

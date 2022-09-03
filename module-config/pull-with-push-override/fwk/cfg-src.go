@@ -26,7 +26,7 @@ func (cs *cfgSrcImpl[T]) Get() T {
 	return cs.cfgSrc()
 }
 
-func MakeConfigSource[T any](adapter func(AppCfg) T) CfgSrc[T] {
+func MakeConfigSource[T any](adapter func(AppCfgInfo) T) CfgSrc[T] {
 	cfg := &cfgSrcImpl[T]{}
 	if adapter != nil {
 		cfgSrc := func() T { return adapter(getAppConfiguration()) }
