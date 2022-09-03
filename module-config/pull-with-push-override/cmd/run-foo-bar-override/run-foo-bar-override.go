@@ -8,7 +8,7 @@ package main
 
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
 
-func initialize() {
+func main() {
 	mod.FooSflCfgSrc.Set(func() mod.FooSflCfgInfo {
 		return mod.FooSflCfgInfo{X: "foo"}
 	})
@@ -16,9 +16,6 @@ func initialize() {
 	mod.BarBfCfgSrc.Set(func() mod.BarBfCfgInfo {
 		return mod.BarBfCfgInfo{Z: 99}
 	})
-}
 
-func main() {
-	initialize()
 	mod.FooSfl()
 }

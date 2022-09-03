@@ -8,13 +8,10 @@ package main
 
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
 
-func initialize() {
+func main() {
 	mod.BazCfgSrc.Set(func() mod.BazCfgInfo {
 		return mod.BazCfgInfo{X: "bar"}
 	})
-}
 
-func main() {
-	initialize()
 	mod.Baz()
 }
