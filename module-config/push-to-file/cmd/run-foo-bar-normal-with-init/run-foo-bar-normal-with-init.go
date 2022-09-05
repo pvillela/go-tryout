@@ -7,10 +7,10 @@
 package main
 
 import (
-	"github.com/pvillela/go-tryout/module-config/push-to-file/mod"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fs"
 	_ "github.com/pvillela/go-tryout/module-config/push-to-file/startup"
 )
 
 func main() {
-	mod.FooSfl()
+	fs.FooSfl()
 }

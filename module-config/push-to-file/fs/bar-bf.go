@@ -4,24 +4,19 @@
  *  that can be found in the LICENSE file.
  */
 
-package mod
+package fs
 
 import (
 	"fmt"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 )
 
 type BarBfCfgInfo struct {
 	Z int
 }
 
-type BarBfCfgSrc struct {
-	Get func() BarBfCfgInfo
-}
+var BarBfCfgSrc = fwk.MakeConfigSource[BarBfCfgInfo]()
 
-type BarBfT = func()
-
-func BarBfC(cfg BarBfCfgSrc) BarBfT {
-	return func() {
-		fmt.Println(cfg.Get().Z)
-	}
+func BarBf() {
+	fmt.Println(BarBfCfgSrc.Get().Z)
 }

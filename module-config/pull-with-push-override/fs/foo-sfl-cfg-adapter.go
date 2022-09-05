@@ -4,7 +4,7 @@
  * that can be found in the LICENSE file.
  */
 
-package mod
+package fs
 
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
 

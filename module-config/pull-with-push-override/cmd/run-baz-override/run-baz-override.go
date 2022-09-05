@@ -6,12 +6,12 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
+import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
 
 func main() {
-	mod.BazCfgSrc.Set(func() mod.BazCfgInfo {
-		return mod.BazCfgInfo{X: "bar"}
+	fs.BazCfgSrc.Set(func() fs.BazCfgInfo {
+		return fs.BazCfgInfo{X: "bar"}
 	})
 
-	mod.Baz()
+	fs.Baz()
 }

@@ -4,26 +4,20 @@
  *  that can be found in the LICENSE file.
  */
 
-package mod
+package fs
 
 import (
 	"fmt"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 )
 
 type FooSflCfgInfo struct {
 	X string
 }
 
-type FooSflCfgSrc struct {
-	Get   func() FooSflCfgInfo
-	BarBf BarBfT
-}
+var FooSflCfgSrc = fwk.MakeConfigSource[FooSflCfgInfo]()
 
-type FooSflT = func()
-
-func FooSflC(cfg FooSflCfgSrc) FooSflT {
-	return func() {
-		fmt.Println(cfg.Get().X)
-		cfg.BarBf()
-	}
+func FooSfl() {
+	fmt.Println(FooSflCfgSrc.Get().X)
+	BarBf()
 }

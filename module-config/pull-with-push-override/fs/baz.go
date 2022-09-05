@@ -4,19 +4,19 @@
  *  that can be found in the LICENSE file.
  */
 
-package mod
+package fs
 
 import (
 	"fmt"
 	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
 )
 
-type BarBfCfgInfo struct {
-	Z int
+type BazCfgInfo struct {
+	X string
 }
 
-var BarBfCfgSrc = fwk.MakeConfigSource[BarBfCfgInfo](BarBfCfgAdapter)
+var BazCfgSrc = fwk.MakeConfigSource[BazCfgInfo](nil)
 
-func BarBf() {
-	fmt.Println(BarBfCfgSrc.Get().Z)
+func Baz() {
+	fmt.Println(BazCfgSrc.Get().X)
 }

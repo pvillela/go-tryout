@@ -4,7 +4,7 @@
  * that can be found in the LICENSE file.
  */
 
-package mod
+package fs
 
 import "github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 
@@ -14,10 +14,11 @@ func fooSflCfgAdapter(appCfg fwk.AppCfgInfo) FooSflCfgInfo {
 	}
 }
 
-func FooSflBoot(appCfg func() fwk.AppCfgInfo) FooSflT {
-	barBf := BarBfBoot(appCfg)
-	return FooSflC(FooSflCfgSrc{
-		Get:   func() FooSflCfgInfo { return fooSflCfgAdapter(appCfg()) },
-		BarBf: barBf,
+var FooSflAdapterCfgSrc = fwk.MakeConfigSource[fwk.AppCfgInfo]()
+
+var _ = (func() struct{} {
+	FooSflCfgSrc.Set(func() FooSflCfgInfo {
+		return fooSflCfgAdapter(FooSflAdapterCfgSrc.Get())
 	})
-}
+	return struct{}{}
+})()

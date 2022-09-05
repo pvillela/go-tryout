@@ -6,16 +6,16 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
+import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
 
 func main() {
-	mod.FooSflCfgSrc.Set(func() mod.FooSflCfgInfo {
-		return mod.FooSflCfgInfo{X: "foo"}
+	fs.FooSflCfgSrc.Set(func() fs.FooSflCfgInfo {
+		return fs.FooSflCfgInfo{X: "foo"}
 	})
 
-	mod.BarBfCfgSrc.Set(func() mod.BarBfCfgInfo {
-		return mod.BarBfCfgInfo{Z: 99}
+	fs.BarBfCfgSrc.Set(func() fs.BarBfCfgInfo {
+		return fs.BarBfCfgInfo{Z: 99}
 	})
 
-	mod.FooSfl()
+	fs.FooSfl()
 }

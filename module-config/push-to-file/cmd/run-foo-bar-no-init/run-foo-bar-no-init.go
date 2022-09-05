@@ -6,8 +6,8 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/push-to-file/mod"
+import "github.com/pvillela/go-tryout/module-config/push-to-file/fs"
 
 func main() {
-	mod.FooSfl()
+	fs.FooSfl()
 }

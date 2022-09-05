@@ -6,8 +6,8 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/mod"
+import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
 
 func main() {
-	mod.Baz()
+	fs.Baz()
 }
