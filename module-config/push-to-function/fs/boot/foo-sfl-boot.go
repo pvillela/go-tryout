@@ -18,9 +18,8 @@ func fooSflCfgAdapter(appCfg fwk.AppCfgInfo) fs.FooSflCfgInfo {
 }
 
 func FooSflBoot(appCfg func() fwk.AppCfgInfo) fs.FooSflT {
-	barBf := BarBfBoot(appCfg)
 	return fs.FooSflC(fs.FooSflCfgSrc{
 		Get:   func() fs.FooSflCfgInfo { return fooSflCfgAdapter(appCfg()) },
-		BarBf: barBf,
+		BarBf: BarBfBoot(appCfg),
 	})
 }
