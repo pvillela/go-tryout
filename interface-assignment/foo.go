@@ -4,6 +4,10 @@
  *  that can be found in the LICENSE file.
  */
 
+/*
+	Demonstrate assignable types related to an interface.
+*/
+
 package main
 
 type X interface {
