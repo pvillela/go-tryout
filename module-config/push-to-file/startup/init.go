@@ -7,12 +7,12 @@
 package startup
 
 import (
+	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-file/fs"
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
 )
 
 func Initialize() struct{} {
-	c := fwk.GetAppConfiguration
+	c := config.GetAppConfiguration
 	fs.FooSflAdapterCfgSrc.Set(c)
 	fs.BarBfAdapterCfgSrc.Set(c)
 	return struct{}{}

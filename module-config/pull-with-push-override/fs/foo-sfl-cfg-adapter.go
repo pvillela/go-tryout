@@ -6,9 +6,11 @@
 
 package fs
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
+import (
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
+)
 
-func FooSflCfgAdapter(appCfg fwk.AppCfgInfo) FooSflCfgInfo {
+func FooSflCfgAdapter(appCfg config.AppCfgInfo) FooSflCfgInfo {
 	return FooSflCfgInfo{
 		X: appCfg.X,
 	}

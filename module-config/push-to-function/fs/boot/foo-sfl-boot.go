@@ -7,17 +7,17 @@
 package boot
 
 import (
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs"
 )
 
-func fooSflCfgAdapter(appCfg fwk.AppCfgInfo) fs.FooSflCfgInfo {
+func fooSflCfgAdapter(appCfg config.AppCfgInfo) fs.FooSflCfgInfo {
 	return fs.FooSflCfgInfo{
 		X: appCfg.X,
 	}
 }
 
-func FooSflBoot(appCfg func() fwk.AppCfgInfo) fs.FooSflT {
+func FooSflBoot(appCfg func() config.AppCfgInfo) fs.FooSflT {
 	return fs.FooSflC(fs.FooSflCfgSrc{
 		Get:   func() fs.FooSflCfgInfo { return fooSflCfgAdapter(appCfg()) },
 		BarBf: BarBfBoot(appCfg),

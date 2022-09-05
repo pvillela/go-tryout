@@ -7,8 +7,8 @@
 package startup
 
 import (
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs/boot"
 )
 
-var FooSfl = boot.FooSflBoot(fwk.GetAppConfiguration)
+var FooSfl = boot.FooSflBoot(config.GetAppConfiguration)

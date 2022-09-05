@@ -6,9 +6,11 @@
 
 package fs
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
+import (
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
+)
 
-func BarBfCfgAdapter(appCfg fwk.AppCfgInfo) BarBfCfgInfo {
+func BarBfCfgAdapter(appCfg config.AppCfgInfo) BarBfCfgInfo {
 	return BarBfCfgInfo{
 		Z: appCfg.Y,
 	}

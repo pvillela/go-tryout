@@ -6,6 +6,10 @@
 
 package fwk
 
+import (
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
+)
+
 type CfgSrc[T any] interface {
 	Set(func() T)
 	Get() T
@@ -26,10 +30,10 @@ func (cs *cfgSrcImpl[T]) Get() T {
 	return cs.cfgSrc()
 }
 
-func MakeConfigSource[T any](adapter func(AppCfgInfo) T) CfgSrc[T] {
+func MakeConfigSource[T any](adapter func(config.AppCfgInfo) T) CfgSrc[T] {
 	cfg := &cfgSrcImpl[T]{}
 	if adapter != nil {
-		cfgSrc := func() T { return adapter(getAppConfiguration()) }
+		cfgSrc := func() T { return adapter(config.GetAppConfiguration()) }
 		cfg.Set(cfgSrc)
 	}
 	return cfg

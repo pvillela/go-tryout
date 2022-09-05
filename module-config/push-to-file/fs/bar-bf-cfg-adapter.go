@@ -6,15 +6,18 @@
 
 package fs
 
-import "github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+import (
+	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+)
 
-func barBfCfgAdapter(appCfg fwk.AppCfgInfo) BarBfCfgInfo {
+func barBfCfgAdapter(appCfg config.AppCfgInfo) BarBfCfgInfo {
 	return BarBfCfgInfo{
 		Z: appCfg.Y,
 	}
 }
 
-var BarBfAdapterCfgSrc = fwk.MakeConfigSource[fwk.AppCfgInfo]()
+var BarBfAdapterCfgSrc = fwk.MakeConfigSource[config.AppCfgInfo]()
 
 var _ = (func() struct{} {
 	BarBfCfgSrc.Set(func() BarBfCfgInfo {

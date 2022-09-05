@@ -1,4 +1,4 @@
-package fwk
+package config
 
 type AppCfgInfo struct {
 	X string

@@ -6,15 +6,18 @@
 
 package fs
 
-import "github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+import (
+	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
+	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+)
 
-func fooSflCfgAdapter(appCfg fwk.AppCfgInfo) FooSflCfgInfo {
+func fooSflCfgAdapter(appCfg config.AppCfgInfo) FooSflCfgInfo {
 	return FooSflCfgInfo{
 		X: appCfg.X,
 	}
 }
 
-var FooSflAdapterCfgSrc = fwk.MakeConfigSource[fwk.AppCfgInfo]()
+var FooSflAdapterCfgSrc = fwk.MakeConfigSource[config.AppCfgInfo]()
 
 var _ = (func() struct{} {
 	FooSflCfgSrc.Set(func() FooSflCfgInfo {

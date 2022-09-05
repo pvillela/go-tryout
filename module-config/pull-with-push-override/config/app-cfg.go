@@ -1,11 +1,11 @@
-package fwk
+package config
 
 type AppCfgInfo struct {
 	X string
 	Y int
 }
 
-func getAppConfiguration() AppCfgInfo {
+func GetAppConfiguration() AppCfgInfo {
 	return AppCfgInfo{
 		X: "xxx",
 		Y: 42,
