@@ -9,9 +9,8 @@ package main
 import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
 
 func main() {
-	fs.BazCfgSrc.Set(func() fs.BazCfgInfo {
+	fs.BazCfgSrc = func() fs.BazCfgInfo {
 		return fs.BazCfgInfo{X: "bar"}
-	})
-
+	}
 	fs.Baz()
 }

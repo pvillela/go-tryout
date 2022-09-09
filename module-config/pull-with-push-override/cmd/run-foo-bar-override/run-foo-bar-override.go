@@ -6,16 +6,18 @@
 
 package main
 
-import "github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
+import (
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
+)
 
 func main() {
-	fs.FooSflCfgSrc.Set(func() fs.FooSflCfgInfo {
+	fs.FooSflCfgSrc = func() fs.FooSflCfgInfo {
 		return fs.FooSflCfgInfo{X: "foo"}
-	})
+	}
 
-	fs.BarBfCfgSrc.Set(func() fs.BarBfCfgInfo {
+	fs.BarBfCfgSrc = func() fs.BarBfCfgInfo {
 		return fs.BarBfCfgInfo{Z: 99}
-	})
+	}
 
 	fs.FooSfl()
 }

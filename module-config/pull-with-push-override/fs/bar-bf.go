@@ -8,15 +8,17 @@ package fs
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
 )
 
 type BarBfCfgInfo struct {
 	Z int
 }
 
-var BarBfCfgSrc = fwk.MakeConfigSource[BarBfCfgInfo](BarBfCfgAdapter)
+type BarBfCfgSrcT = config.CfgSrc[BarBfCfgInfo]
+
+var BarBfCfgSrc = config.MakeCfgSrc[BarBfCfgInfo](BarBfCfgAdapter)
 
 func BarBf() {
-	fmt.Println(BarBfCfgSrc.Get().Z)
+	fmt.Println(BarBfCfgSrc().Z)
 }

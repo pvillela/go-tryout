@@ -8,16 +8,18 @@ package fs
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fwk"
+	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
 )
 
 type FooSflCfgInfo struct {
 	X string
 }
 
-var FooSflCfgSrc = fwk.MakeConfigSource[FooSflCfgInfo](FooSflCfgAdapter)
+type FooSflCfgSrcT = config.CfgSrc[FooSflCfgInfo]
+
+var FooSflCfgSrc = config.MakeCfgSrc[FooSflCfgInfo](FooSflCfgAdapter)
 
 func FooSfl() {
-	fmt.Println(FooSflCfgSrc.Get().X)
+	fmt.Println(FooSflCfgSrc().X)
 	BarBf()
 }

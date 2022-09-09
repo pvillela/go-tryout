@@ -5,6 +5,8 @@ type AppCfgInfo struct {
 	Y int
 }
 
+type AppCfgSrc = CfgSrc[AppCfgInfo]
+
 func GetAppConfiguration() AppCfgInfo {
 	return AppCfgInfo{
 		X: "xxx",
