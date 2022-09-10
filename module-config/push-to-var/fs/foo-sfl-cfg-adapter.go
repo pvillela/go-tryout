@@ -19,7 +19,7 @@ func fooSflCfgAdapter(appCfgSrc config.AppCfgSrc) FooSflCfgSrc {
 	}
 }
 
-var FooSflCfgAdaptation = fwk.MakeCfgSrcAdaptation[config.AppCfgInfo, FooSflCfgInfo](
+var FooSflCfgAdaptation = fwk.MakeCfgSrcAdaptation(
 	&FooSflCfgSrcV,
 	fooSflCfgAdapter,
 )

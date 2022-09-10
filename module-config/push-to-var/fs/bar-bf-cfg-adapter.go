@@ -19,7 +19,7 @@ func barBfCfgAdapter(appCfgSrc config.AppCfgSrc) BarBfCfgSrc {
 	}
 }
 
-var BarBfCfgAdaptation = fwk.MakeCfgSrcAdaptation[config.AppCfgInfo, BarBfCfgInfo](
+var BarBfCfgAdaptation = fwk.MakeCfgSrcAdaptation(
 	&BarBfCfgSrcV,
 	barBfCfgAdapter,
 )
