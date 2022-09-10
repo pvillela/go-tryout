@@ -8,7 +8,7 @@ package fs
 
 import (
 	"fmt"
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/fwk"
 )
 
 type BarBfCfgInfo struct {

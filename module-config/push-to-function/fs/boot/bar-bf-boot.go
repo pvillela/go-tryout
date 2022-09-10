@@ -7,8 +7,8 @@
 package boot
 
 import (
-	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/config"
 )
 
 func barBfCfgAdapter(appCfg config.AppCfgInfo) fs.BarBfCfgInfo {

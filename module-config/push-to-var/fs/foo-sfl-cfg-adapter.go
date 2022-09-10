@@ -7,8 +7,8 @@
 package fs
 
 import (
-	"github.com/pvillela/go-tryout/module-config/push-to-file/config"
-	"github.com/pvillela/go-tryout/module-config/push-to-file/fwk"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/config"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/fwk"
 )
 
 func fooSflCfgAdapter(appCfg config.AppCfgInfo) FooSflCfgInfo {
