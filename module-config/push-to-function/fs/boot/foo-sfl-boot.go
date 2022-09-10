@@ -9,15 +9,16 @@ package boot
 import (
 	"github.com/pvillela/go-tryout/module-config/push-to-function/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs"
+	"github.com/pvillela/go-tryout/module-config/push-to-function/fwk"
 )
 
-var FooSflCfgAdapter = func(appCfgSrc config.AppCfgSrc) func() fs.FooSflCfgInfo {
-	return func() fs.FooSflCfgInfo {
-		return fs.FooSflCfgInfo{
-			X: appCfgSrc().X,
-		}
+func fooSflCfgAdapter(appCfgInfo config.AppCfgInfo) fs.FooSflCfgInfo {
+	return fs.FooSflCfgInfo{
+		X: appCfgInfo.X,
 	}
 }
+
+var FooSflCfgAdapter = fwk.LiftToNullary(fooSflCfgAdapter)
 
 func FooSflBoot(appCfgSrc config.AppCfgSrc) fs.FooSflT {
 	return fs.FooSflC(fs.FooSflCfgSrc{

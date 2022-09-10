@@ -1,9 +1,5 @@
 package util
 
-type Func[S any, T any] func(S) T
-
-type Nullary[T any] func() T
-
 func ThunkOf[T any](t T) func() T {
 	return func() T {
 		return t
