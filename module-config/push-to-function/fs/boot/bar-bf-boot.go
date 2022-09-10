@@ -7,18 +7,20 @@
 package boot
 
 import (
+	"github.com/pvillela/go-tryout/module-config/push-to-function/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs"
-	"github.com/pvillela/go-tryout/module-config/push-to-var/config"
 )
 
-func barBfCfgAdapter(appCfg config.AppCfgInfo) fs.BarBfCfgInfo {
-	return fs.BarBfCfgInfo{
-		Z: appCfg.Y,
+var BarBfCfgAdapter = func(appCfgSrc config.AppCfgSrc) func() fs.BarBfCfgInfo {
+	return func() fs.BarBfCfgInfo {
+		return fs.BarBfCfgInfo{
+			Z: appCfgSrc().Y,
+		}
 	}
 }
 
-func BarBfBoot(appCfg func() config.AppCfgInfo) fs.BarBfT {
+func BarBfBoot(appCfg config.AppCfgSrc) fs.BarBfT {
 	return fs.BarBfC(fs.BarBfCfgSrc{
-		Get: func() fs.BarBfCfgInfo { return barBfCfgAdapter(appCfg()) },
+		Get: BarBfCfgAdapter(appCfg),
 	})
 }

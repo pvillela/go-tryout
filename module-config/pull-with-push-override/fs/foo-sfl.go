@@ -15,11 +15,11 @@ type FooSflCfgInfo struct {
 	X string
 }
 
-type FooSflCfgSrcT = config.CfgSrc[FooSflCfgInfo]
+type FooSflCfgSrc = config.CfgSrc[FooSflCfgInfo]
 
-var FooSflCfgSrc = config.MakeCfgSrc[FooSflCfgInfo](FooSflCfgAdapter)
+var FooSflCfgSrcV = config.MakeCfgSrc[FooSflCfgInfo](FooSflCfgAdapter)
 
 func FooSfl() {
-	fmt.Println(FooSflCfgSrc().X)
+	fmt.Println(FooSflCfgSrcV().X)
 	BarBf()
 }

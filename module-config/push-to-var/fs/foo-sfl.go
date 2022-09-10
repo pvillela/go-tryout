@@ -15,9 +15,11 @@ type FooSflCfgInfo struct {
 	X string
 }
 
-var FooSflCfgSrc = fwk.MakeConfigSource[FooSflCfgInfo]()
+type FooSflCfgSrc = fwk.CfgSrc[FooSflCfgInfo]
+
+var FooSflCfgSrcV = fwk.NilCfgSrc[FooSflCfgInfo]
 
 func FooSfl() {
-	fmt.Println(FooSflCfgSrc.Get().X)
+	fmt.Println(FooSflCfgSrcV().X)
 	BarBf()
 }

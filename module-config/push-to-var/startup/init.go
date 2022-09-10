@@ -13,8 +13,8 @@ import (
 
 func Initialize() struct{} {
 	c := config.GetAppConfiguration
-	fs.FooSflAdapterCfgSrc.Set(c)
-	fs.BarBfAdapterCfgSrc.Set(c)
+	fs.FooSflCfgAdaptation.SetOrigin(c)
+	fs.BarBfCfgAdaptation.SetOrigin(c)
 	return struct{}{}
 }
 

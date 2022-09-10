@@ -15,10 +15,10 @@ type BazCfgInfo struct {
 	X string
 }
 
-type BazCfgSrcT = config.CfgSrc[BazCfgInfo]
+type BazCfgSrc = config.CfgSrc[BazCfgInfo]
 
-var BazCfgSrc = config.MakeCfgSrc[BazCfgInfo](nil)
+var BazCfgSrcV = config.MakeCfgSrc[BazCfgInfo](nil)
 
 func Baz() {
-	fmt.Println(BazCfgSrc().X)
+	fmt.Println(BazCfgSrcV().X)
 }

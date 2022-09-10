@@ -7,7 +7,7 @@
 package main
 
 import (
-	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/fs"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/fs"
 )
 
 func main() {

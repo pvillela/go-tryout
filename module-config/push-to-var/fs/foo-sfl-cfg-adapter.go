@@ -11,17 +11,15 @@ import (
 	"github.com/pvillela/go-tryout/module-config/push-to-var/fwk"
 )
 
-func fooSflCfgAdapter(appCfg config.AppCfgInfo) FooSflCfgInfo {
-	return FooSflCfgInfo{
-		X: appCfg.X,
+func fooSflCfgAdapter(appCfgSrc config.AppCfgSrc) FooSflCfgSrc {
+	return func() FooSflCfgInfo {
+		return FooSflCfgInfo{
+			X: appCfgSrc().X,
+		}
 	}
 }
 
-var FooSflAdapterCfgSrc = fwk.MakeConfigSource[config.AppCfgInfo]()
-
-var _ = (func() struct{} {
-	FooSflCfgSrc.Set(func() FooSflCfgInfo {
-		return fooSflCfgAdapter(FooSflAdapterCfgSrc.Get())
-	})
-	return struct{}{}
-})()
+var FooSflCfgAdaptation = fwk.MakeCfgSrcAdaptation[config.AppCfgInfo, FooSflCfgInfo](
+	&FooSflCfgSrcV,
+	fooSflCfgAdapter,
+)

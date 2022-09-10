@@ -15,8 +15,10 @@ type BarBfCfgInfo struct {
 	Z int
 }
 
-var BarBfCfgSrc = fwk.MakeConfigSource[BarBfCfgInfo]()
+type BarBfCfgSrc = fwk.CfgSrc[BarBfCfgInfo]
+
+var BarBfCfgSrcV = fwk.NilCfgSrc[BarBfCfgInfo]
 
 func BarBf() {
-	fmt.Println(BarBfCfgSrc.Get().Z)
+	fmt.Println(BarBfCfgSrcV().Z)
 }

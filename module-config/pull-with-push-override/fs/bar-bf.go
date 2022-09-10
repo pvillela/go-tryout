@@ -15,10 +15,10 @@ type BarBfCfgInfo struct {
 	Z int
 }
 
-type BarBfCfgSrcT = config.CfgSrc[BarBfCfgInfo]
+type BarBfCfgSrc = config.CfgSrc[BarBfCfgInfo]
 
-var BarBfCfgSrc = config.MakeCfgSrc[BarBfCfgInfo](BarBfCfgAdapter)
+var BarBfCfgSrcV = config.MakeCfgSrc[BarBfCfgInfo](BarBfCfgAdapter)
 
 func BarBf() {
-	fmt.Println(BarBfCfgSrc().Z)
+	fmt.Println(BarBfCfgSrcV().Z)
 }

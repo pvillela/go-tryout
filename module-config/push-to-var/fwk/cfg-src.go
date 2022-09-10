@@ -6,26 +6,29 @@
 
 package fwk
 
-type CfgSrc[T any] interface {
-	Set(func() T)
-	Get() T
+type CfgSrc[T any] func() T
+
+func NilCfgSrc[T any]() T {
+	panic("Module used before being initialized")
 }
 
-type cfgSrcImpl[T any] struct {
-	cfgSrc func() T
+type CfgSrcAdapter[S, T any] func(CfgSrc[S]) CfgSrc[T]
+
+type CfgSrcAdaptation[S, T any] struct {
+	targetSrc *func() T
+	adapter   CfgSrcAdapter[S, T]
 }
 
-func (cs *cfgSrcImpl[T]) Set(cfgSrc func() T) {
-	cs.cfgSrc = cfgSrc
+func (s CfgSrcAdaptation[S, T]) SetOrigin(originSrc CfgSrc[S]) {
+	*s.targetSrc = s.adapter(originSrc)
 }
 
-func (cs *cfgSrcImpl[T]) Get() T {
-	if cs.cfgSrc == nil {
-		panic("Module used before being initialized")
+func MakeCfgSrcAdaptation[S, T any](
+	targetSrc *func() T,
+	adapter CfgSrcAdapter[S, T],
+) CfgSrcAdaptation[S, T] {
+	return CfgSrcAdaptation[S, T]{
+		targetSrc: targetSrc,
+		adapter:   adapter,
 	}
-	return cs.cfgSrc()
-}
-
-func MakeConfigSource[T any]() CfgSrc[T] {
-	return &cfgSrcImpl[T]{}
 }
