@@ -20,5 +20,5 @@ type BazCfgSrc = config.CfgSrc[BazCfgInfo]
 var BazCfgSrcV = config.MakeCfgSrc[BazCfgInfo](nil)
 
 func Baz() {
-	fmt.Println(BazCfgSrcV().X)
+	fmt.Println(len(BazCfgSrcV().X))
 }
