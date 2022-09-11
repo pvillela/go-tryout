@@ -4,22 +4,21 @@
  * that can be found in the LICENSE file.
  */
 
-package fs
+package cfgadapt
 
 import (
 	"github.com/pvillela/go-tryout/module-config/push-to-var/config"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/fs"
 	"github.com/pvillela/go-tryout/module-config/push-to-var/fwk"
 )
 
-func fooSflCfgAdapter(appCfgSrc config.AppCfgSrc) FooSflCfgSrc {
-	return func() FooSflCfgInfo {
-		return FooSflCfgInfo{
-			X: appCfgSrc().X,
-		}
+func barBfCfgAdapter(appCfgInfo config.AppCfgInfo) fs.BarBfCfgInfo {
+	return fs.BarBfCfgInfo{
+		Z: appCfgInfo.Y,
 	}
 }
 
-var FooSflCfgAdaptation = fwk.MakeCfgSrcAdaptation(
-	&FooSflCfgSrcV,
-	fooSflCfgAdapter,
+var BarBfCfgAdaptation = fwk.MakeCfgSrcAdaptation(
+	&fs.BarBfCfgSrcV,
+	barBfCfgAdapter,
 )

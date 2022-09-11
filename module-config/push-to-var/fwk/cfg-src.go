@@ -12,7 +12,7 @@ func NilCfgSrc[T any]() T {
 	panic("Module used before being initialized")
 }
 
-type CfgSrcAdapter[S, T any] func(CfgSrc[S]) CfgSrc[T]
+type CfgSrcAdapter[S, T any] func(S) T
 
 type CfgSrcAdaptation[S, T any] struct {
 	targetSrc *func() T
@@ -20,7 +20,7 @@ type CfgSrcAdaptation[S, T any] struct {
 }
 
 func (s CfgSrcAdaptation[S, T]) SetOrigin(originSrc CfgSrc[S]) {
-	*s.targetSrc = s.adapter(originSrc)
+	*s.targetSrc = func() T { return s.adapter(originSrc()) }
 }
 
 func MakeCfgSrcAdaptation[S, T any](

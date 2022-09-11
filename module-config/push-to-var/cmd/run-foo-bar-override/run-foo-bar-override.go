@@ -7,13 +7,12 @@
 package main
 
 import (
+	"github.com/pvillela/go-tryout/arch/util"
 	"github.com/pvillela/go-tryout/module-config/push-to-var/fs"
 )
 
 func main() {
-	fs.FooSflCfgSrcV = func() fs.FooSflCfgInfo {
-		return fs.FooSflCfgInfo{X: "foo"}
-	}
+	fs.FooSflCfgSrcV = util.ThunkOf(fs.FooSflCfgInfo{X: "foo"})
 
 	fs.BarBfCfgSrcV = func() fs.BarBfCfgInfo {
 		return fs.BarBfCfgInfo{Z: 99}

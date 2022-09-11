@@ -12,9 +12,9 @@ func nilCfgSrc[T any]() T {
 	panic("Module used before being initialized")
 }
 
-func MakeCfgSrc[T any](adapter func(src AppCfgSrc) CfgSrc[T]) CfgSrc[T] {
+func MakeCfgSrc[T any](adapter func(src AppCfgInfo) T) CfgSrc[T] {
 	if adapter == nil {
 		return nilCfgSrc[T]
 	}
-	return adapter(GetAppConfiguration)
+	return func() T { return adapter(GetAppConfiguration()) }
 }

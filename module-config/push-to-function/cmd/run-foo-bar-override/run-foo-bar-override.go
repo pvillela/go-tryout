@@ -7,6 +7,7 @@
 package main
 
 import (
+	"github.com/pvillela/go-tryout/arch/util"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/config"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs"
 	"github.com/pvillela/go-tryout/module-config/push-to-function/fs/boot"
@@ -14,15 +15,11 @@ import (
 
 func main() {
 	boot.FooSflCfgAdapter = func(src config.AppCfgSrc) func() fs.FooSflCfgInfo {
-		return func() fs.FooSflCfgInfo {
-			return fs.FooSflCfgInfo{X: "foo"}
-		}
+		return util.ThunkOf(fs.FooSflCfgInfo{X: "foo"})
 	}
 
 	boot.BarBfCfgAdapter = func(src config.AppCfgSrc) func() fs.BarBfCfgInfo {
-		return func() fs.BarBfCfgInfo {
-			return fs.BarBfCfgInfo{Z: 99}
-		}
+		return util.ThunkOf(fs.BarBfCfgInfo{Z: 99})
 	}
 
 	{

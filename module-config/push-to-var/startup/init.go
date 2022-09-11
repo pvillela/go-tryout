@@ -8,13 +8,13 @@ package startup
 
 import (
 	"github.com/pvillela/go-tryout/module-config/push-to-var/config"
-	"github.com/pvillela/go-tryout/module-config/push-to-var/fs"
+	"github.com/pvillela/go-tryout/module-config/push-to-var/fs/cfgadapt"
 )
 
 func Initialize() struct{} {
 	c := config.GetAppConfiguration
-	fs.FooSflCfgAdaptation.SetOrigin(c)
-	fs.BarBfCfgAdaptation.SetOrigin(c)
+	cfgadapt.FooSflCfgAdaptation.SetOrigin(c)
+	cfgadapt.BarBfCfgAdaptation.SetOrigin(c)
 	return struct{}{}
 }
 

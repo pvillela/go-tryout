@@ -10,10 +10,8 @@ import (
 	"github.com/pvillela/go-tryout/module-config/pull-with-push-override/config"
 )
 
-func BarBfCfgAdapter(appCfg config.AppCfgSrc) config.CfgSrc[BarBfCfgInfo] {
-	return func() BarBfCfgInfo {
-		return BarBfCfgInfo{
-			Z: appCfg().Y,
-		}
+func BarBfCfgAdapter(appCfg config.AppCfgInfo) BarBfCfgInfo {
+	return BarBfCfgInfo{
+		Z: appCfg.Y,
 	}
 }

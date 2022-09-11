@@ -15,8 +15,6 @@ type FooSflCfgInfo struct {
 	X string
 }
 
-type FooSflCfgSrc = fwk.CfgSrc[FooSflCfgInfo]
-
 var FooSflCfgSrcV = fwk.NilCfgSrc[FooSflCfgInfo]
 
 func FooSfl() {
